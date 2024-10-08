@@ -1,0 +1,44 @@
+\documentclass{nudtproposal}
+% --- preamble --- %
+\input{data/preamble}
+\addbibresource{ref/refs.bib}
+% --- personal information --- %
+\degree{硕士} % 学位：硕士，博士
+\confidentiality{公开} % 密级：公开，秘密，机密或者绝密
+\papernumber{2411010xx} % 编号
+\title{国防科技大学研究生} % 标题第1行
+\subtitle{学位论文开题报告} % 标题第2行
+\author{张同学} % 作者
+\authorid{2301xxxx} % 学号
+\advisor{xxx} % 导师
+\advisortitle{教~~~~授} % 职称
+\degreetype{理学} % 学位类别
+\major{数~~~~学} % 一级学科
+\field{xxx} % 研究方向
+\institute{理学院}% 学院
+\year{2024}
+\month{12}
+\day{1}
+% \zhdate{二〇二四年十一月} % 中文日期
+
+\begin{document}
+\maketitle
+\BeforeBeginEnvironment{tabular}{\zihao{5}}
+\input{data/1_background}
+\clearpage
+\input{data/2_referenceSummary}
+\clearpage
+\input{data/3_researchContent}
+\clearpage
+\input{data/4_researchCondition}
+\clearpage
+\input{data/5_schedule}
+\clearpage
+\input{data/6_references}
+\clearpage
+\input{data/7_advisorComments}
+%评审意见直接插进来就行，最终版用签字扫描版替代
+\includepdf[pages=-]{figure/研究生学位论文开题报告评议表.pdf}
+\clearpage
+
+\end{document}

@@ -1,0 +1,146 @@
+\section{学位论文选题的立论依据}\label{sec:background}
+\subsection{课题来源}
+自拟。
+
+\subsection{基本概念}
+\subsubsection{插入图表}
+下面来看一个图片实例：
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width = 2in]{image/logo.pdf}
+	\caption{nudtproposal的logo}
+	\label{fig:nudt-proposal}
+\end{figure}
+
+如果要把编号的两个图形并排，那么小页(minipage)就非常有用了，可以分别参考\cref{fig:parallel1}和\cref{fig:parallel2}。
+\begin{figure}[htb]
+\begin{minipage}{0.48\textwidth}
+  \centering
+  \includegraphics[height=1.2cm]{image/xhh.eps}
+  \caption{并排第一个图}
+  \label{fig:parallel1}
+\end{minipage}\hfill
+\begin{minipage}{0.48\textwidth}
+  \centering
+  \includegraphics[height=1.2cm]{image/xhh.eps}
+  \caption{并排第二个图}
+  \label{fig:parallel2}
+\end{minipage}
+\end{figure}
+
+若子图共用一个计数器见\cref{fig:big1}，它包含两个小图，分别是\cref{fig:subfig1}
+和\cref{fig:subfig2}。这里推荐使用\verb|\subfloat|，{\bf 不要再用}
+\verb|\subfigure|和\verb|\subtable|。
+\begin{figure}[htb]
+  \centering%
+  \subfloat[第一个小图形]{%
+    \label{fig:subfig1}
+    \includegraphics[height=1.56cm]{image/xh.eps}}\hspace{4em}%
+  \subfloat[第二个小图形]{%
+    \label{fig:subfig2}
+    \includegraphics[height=1.56cm]{image/xhh.eps}}
+  \caption{包含子图形的大图形}
+  \label{fig:big1}
+\end{figure}
+
+下面来看一个表格实例：
+\begin{table}[htb]
+  \centering
+  \begin{minipage}[t]{0.8\linewidth}
+  \caption{模板文件}
+  \label{tab:template-files}
+    \begin{tabular*}{\linewidth}{lp{8cm}}
+      \toprule[1.5pt]
+      {\hei 文件名} & {\hei 描述} \\
+      \midrule[1pt]
+      mian.tex & 主程序\footnote{表格中的脚注} \\
+      nudtpaper.cls & 模板类文件\footnote{再来一个}。\\
+      \bottomrule[1.5pt]
+    \end{tabular*}
+  \end{minipage}
+\end{table}
+
+浮动体的并排放置一般有两种情况：1）二者没有关系，为两个独立的浮动体；2）二者隶属于同一个浮动体。对表格来说并排表格既可以像\cref{tab:parallel1}、\cref{tab:parallel2}使用小页环境，也可以如\cref{tab:subtable}使用子表格来做。
+
+\begin{table}[htb]
+\centering\noindent
+\begin{minipage}{0.45\textwidth}
+	\centering
+	\caption{第一个并排子表格}
+	\label{tab:parallel1}
+	\begin{tabular}{p{2cm}p{2cm}}
+		\toprule[1.5pt]
+		111 & 222 \\\midrule[1pt]
+		222 & 333 \\\bottomrule[1.5pt]
+	\end{tabular}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\centering
+	\caption{第二个并排子表格}
+	\label{tab:parallel2}
+	\begin{tabular}{p{2cm}p{2cm}}
+		\toprule[1.5pt]
+		111 & 222 \\\midrule[1pt]
+		222 & 333 \\\bottomrule[1.5pt]
+	\end{tabular}
+	\end{minipage}
+\end{table}
+
+\begin{table}[htb]
+	\centering
+	\caption{并排子表格}
+	\label{tab:subtable}
+	\subfloat[第一个子表格]{
+	\begin{tabular}{p{2cm}p{2cm}}
+		\toprule[1.5pt]
+		111 & 222 \\\midrule[1pt]
+		222 & 333 \\\bottomrule[1.5pt]
+	\end{tabular}
+	}\hskip2cm
+	\subfloat[第二个子表格]{
+	\begin{tabular}{p{2cm}p{2cm}}
+		\toprule[1.5pt]
+		111 & 222 \\\midrule[1pt]
+		222 & 333 \\\bottomrule[1.5pt]
+	\end{tabular}
+	}
+\end{table}
+
+\subsubsection{插入公式}
+贝叶斯公式如式~(\ref{eq:bayes})，其中$p(y|\boldsymbol{x})$为后验；$p(\boldsymbol{x})$为先验；分母$p(\boldsymbol{x})$ 为归一化因子。
+\begin{equation}\label{eq:bayes}
+	p(y|\boldsymbol{x}) = \frac{p(\boldsymbol{x},y)}{p(\boldsymbol{x})}=
+	\frac{p(\boldsymbol{x}|y)p(y)}{p(\boldsymbol{x})}
+\end{equation}
+
+再看\cref{eq:split}：
+\begin{equation}\label{eq:split}
+	\begin{split}
+		C(z) &= [z^n] \biggl[\frac{e^{3/4}}{\sqrt{1-z}} +
+		e^{-3/4}(1-z)^{1/2} + \frac{e^{-3/4}}{4}(1-z)^{3/2}
+		+ O\Bigl( (1-z)^{5/2}\Bigr)\biggr] \\
+		&= \frac{e^{-3/4}}{\sqrt{\pi n}} - \frac{5e^{-3/4}}{8\sqrt{\pi
+		n^3}} + \frac{e^{-3/4}}{128 \sqrt{\pi n^5}} +
+		O\biggl(\frac{1}{\sqrt{\pi
+		n^7}}\biggr)
+	\end{split}
+\end{equation}
+
+
+\subsubsection{智能引用}
+为了增加体验感，使用 `\verb|\cref|' 命令智能引用，例如\cref{fig:nudt-proposal} 、\cref{tab:template-files}和\cref{eq:bayes}，但尽量避免在换行处使用该命令。
+
+\subsection{其他事项}
+\subsubsection{破折号}
+中文破折号为一个两个字宽垂直居中的直线，输入法直接得到的破折号是两个断开的小短线（——），这看起来不舒服。所以模板中定义了一个破折号的命令  `\verb|\pozhehao|'，请看：
+
+厚德博学，强军兴国\hfill \pozhehao{}国防科大校训
+
+\subsection{Iguana\TeX{}}
+\begin{figure}[htbp]
+	\includegraphics[width=.8\textwidth]{image/IguanaTex.pdf}
+	\caption{\href{https://github.com/Jonathan-LeRoux/IguanaTex}{Iguana\TeX{}生成的图片}}
+	\label{fig:IguanaTex}
+\end{figure}
+
+推荐一个PowerPoint插件 \href{https://github.com/Jonathan-LeRoux/IguanaTex}{Iguana\TeX{}}，只要可以用\LaTeX{}生成的文档（甚至是beamer和poster）都可以无损插入到PowerPoint中，\cref{fig:IguanaTex}就是用这个插件成的。

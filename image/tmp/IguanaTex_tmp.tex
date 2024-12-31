@@ -1,0 +1,43 @@
+\documentclass{article}
+\input{preamble}
+\begin{document}
+
+\begin{algorithm}[h]
+	\caption{Improved Sequential Bifurcation Algorithm}
+    \label{alg:ISB}
+	\begin{algorithmic}[1]
+		\State get $y_{(K)}$ and $y_{(0)}$ at test $\boldsymbol{x}_{0}$ and $\boldsymbol{x}_{K}$
+		\State $\hat{\beta}_{i \sim j} = y_{(K)}-y_{(0)}$
+		\While {Stop($\cdot$)}
+		\label{code:stop}
+		\If {$i=j$}
+		\State $im\gets [im; i]$
+		\State $ n_{im}\gets n_{im} + 1 $
+		\Else
+		\State calculate $s$ by Eq.~\eqref{eq:s}.
+		\label{code:s}
+		% \If {there are important factors in first $i-1$ factors}
+		\If {$I(i-1)$}
+		\State get $y_{(i\sim s)}$ at test $\boldsymbol{x}_{i\sim s}$
+		\State $\hat{\beta}_{i \sim s} = y_{(i\sim s)}-y_{(0)}$
+		\Else 
+		\State get $y_{(s)}$ at test $\boldsymbol{x}_{s}$
+		\State $\hat{\beta}_{i \sim s} = y_{(s)}-y_{(i-1)}$
+		\EndIf
+		% \If {there are important factors in first $s$ factors}
+		\If {$I(s)$}
+		\State get $y_{(s+1\sim j)}$ at test $\boldsymbol{x}_{s+1\sim j}$
+		\State $\hat{\beta}_{s+1\sim j} = y_{(s+1\sim j)}-y_{(0)}$
+		\Else 
+		\State get $y_{(s)}$ at test $\boldsymbol{x}_{s}$
+		\State $\hat{\beta}_{s+1 \sim j} = y_{(j)}-y_{(s)}$
+		\EndIf
+		\EndIf
+		\State \textbf{delete} $i \sim j$
+		\State $i\sim j = \underset{i\sim j}{\operatorname{arg\,max}}\, \hat{\beta}_{i\sim j}$ 
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
+
+
+\end{document}

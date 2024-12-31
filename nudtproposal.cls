@@ -37,11 +37,24 @@
 \RequirePackage[neverdecrease]{paralist}
 \RequirePackage{enumitem}
 % 公式、定理
-\RequirePackage{amsmath,amssymb}
+\RequirePackage{amsmath,amsfonts,amssymb,amsthm}
 \RequirePackage[Symbolsmallscale]{upgreek}
 \interdisplaylinepenalty=2500
 \RequirePackage{bm}
-\RequirePackage[amsmath,thmmarks,hyperref]{ntheorem}
+\theoremstyle{plain}% default
+\newtheorem{theorem}{定理} %
+\newtheorem{lemma}[theorem]{引理} %
+\newtheorem{proposition}[theorem]{命题} %
+\newtheorem*{corollary}{推论} %
+\theoremstyle{definition} %
+\newtheorem{definition}{定义} %
+\newtheorem{conjecture}{猜想} %
+\newtheorem{example}{例} %
+\theoremstyle{remark} %
+\newtheorem{case}{\normalfont\bfseries 案例} %
+\renewcommand*{\proofname}{\normalfont\bfseries 证明} %
+% 算法环境
+\RequirePackage[linesnumbered,ruled]{algorithm2e}
 % 参考文献
 \RequirePackage[backend=biber,style=gb7714-2015,
 % gbalign=right,
@@ -95,6 +108,7 @@ gbnamefmt=lowercase,gbpub=false,doi=false,url= false]{biblatex}
     \setCJKfamilyfont{hei}{SimHei}
     \setCJKfamilyfont{fs}[AutoFakeBold={2.17}]{仿宋_GB2312.ttf} % fang-song
     \setCJKfamilyfont{kai}{KaiTi} % Kai
+    \setCJKfamilyfont{fzxbsjw}[AutoFakeBold={2.17}]{FZXBSJW.TTF} % 方正小标宋简体
 }
 \installttf
 \newcommand{\cusong}{\bfseries}
@@ -102,10 +116,12 @@ gbnamefmt=lowercase,gbpub=false,doi=false,url= false]{biblatex}
 \newcommand{\fs}{\CJKfamily{fs}}         % 仿宋体
 \newcommand{\kai}{\CJKfamily{kai}}       % 楷体
 \newcommand{\hei}{\CJKfamily{hei}}       % 黑体
+\newcommand{\fzxbsjw}{\CJKfamily{fzxbsjw}}  % 方正小标宋   
 \def\songti{\song}
 \def\fangsong{\fs}
 \def\kaishu{\kai}
 \def\heiti{\hei}
+\def\fangzhengxiaobiaosongjw{\fzxbsjw}
 \newcommand{\fttilde}{\fontspec{FreeSerif}\selectfont}
 \newcommand{\pozhehao}{\kern0.2em\rule[0.8ex]{1.6em}{0.1ex}\kern0.2em}
 \newcommand{\xiaopozhe}{\kern0.2em\rule[0.8ex]{0.6em}{0.1ex}\kern0.2em}
@@ -168,10 +184,10 @@ or test {\ifnumgreater{\value{page}}{\pageafsecseven}}
 {}{%
 \ifnumequal{\value{page}}{\sectionpage}
 {\tikz{\draw[line width=0.4pt] (0,0) rectangle (\textwidth+2mm,\textheight-0.6cm);}}
-{\tikz{\draw[line width=0.4pt] (0,0) rectangle (\textwidth+2mm,\textheight+0.5mm);}}%
+{\tikz{\draw[line width=0.4pt] (0,0) rectangle (\textwidth+2mm,\textheight+3mm);}}%
 }%
 }
-\DraftwatermarkOptions{anchor=lb, pos={2.9cm,26.45cm},markcmd=\FrameforSectionWM}
+\DraftwatermarkOptions{anchor=lb, pos={2.9cm,26.60cm},markcmd=\FrameforSectionWM}
 
 % --- 图、表 --- %
 % 重定义图表标题
@@ -187,14 +203,35 @@ or test {\ifnumgreater{\value{page}}{\pageafsecseven}}
 {labelformat=simple,font=nudt,captionskip=6bp,nearskip=6bp,farskip=0bp,topadjust=0bp}
 \renewcommand{\thesubfigure}{(\alph{subfigure})}
 \renewcommand{\thesubtable}{(\alph{subtable})}
-% 单元格换行
-\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}} 
+\let\nudt@oldlongtable\longtable
+\let\nudt@endoldlongtable\endlongtable
+\renewenvironment{longtable}%
+    {\bgroup%
+    \zihao{5}
+    \nudt@oldlongtable}%
+  {\nudt@endoldlongtable\egroup}
+\newenvironment{slongtable}%
+  {\bgroup%
+  \zihao{-4}
+  \nudt@oldlongtable}%
+{\nudt@endoldlongtable\egroup}
+
+% 算法
+\renewcommand{\algorithmcfname}{算法}
+\AtBeginEnvironment{algorithm}{
+    \zihao{5}
+    \SetAlgoLined
+    \SetKwInOut{Input}{输入}
+    \SetKwInOut{Output}{输出}
+    \DontPrintSemicolon 
+}
 
 % --- 参考文献 --- %
 % def bibtabular
-\newcolumntype{L}[1]{%
-  >{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-  
+\RequirePackage{ragged2e}
+% \setlength{\RaggedRightRightskip}{0pt plus 4em}
+\newcolumntype{L}[1]{
+  >{\RaggedRight\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{%
   >{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
@@ -251,7 +288,7 @@ or test {\ifnumgreater{\value{page}}{\pageafsecseven}}
     \includegraphics[width = .2\textwidth]{figure/logo.pdf} 
   \end{tabular}%
   \hfill
-  \begin{tabular}{cc}
+  \begin{tabular}{cp{4.5em}<{\centering}}
     {\mdseries\heiti 密级：} &  {\mdseries\heiti \the\confidentiality} \\
     \cline{2-2}
     {\mdseries\heiti 编号：} & {\mdseries\heiti \the\papernumber}\\
@@ -260,7 +297,8 @@ or test {\ifnumgreater{\value{page}}{\pageafsecseven}}
   }
   \vspace{25pt}
   \begin{center}
-    {\zihao{1}\bfseries\heiti 国防科技大学}\\
+    % {\zihao{1}\bfseries\heiti 国防科技大学}\\
+    {\zihao{1}\fangzhengxiaobiaosongjw 国防科技大学}\\
     \vspace*{45pt}
     {\fontsize{28bp}{12}\selectfont \bfseries\heiti \the\degree 研究生学位论文} \\
     \vspace*{25pt}
@@ -315,7 +353,7 @@ or test {\ifnumgreater{\value{page}}{\pageafsecseven}}
 
     \circled{1}： 审批时间代码。精确到年月，如2311表示审批时间为2023年11月；
 
-    \circled{2}：	审批单位代码。01-理学院，02-计算机学院，03-电子科学学院，04-前沿交叉学科学院，05-智能科学学院，06-系统工程学院，07-空天科学学院，08-国际关系学院，09-信息通信学院，10-电子对抗学院，11-气象海洋学院，12-军政基础教育学院，00-其他单位；
+    \circled{2}：	审批单位代码。01-理学院，02-计算机学院，03-电子科学学院，04-前沿\\交叉学科学院，05-智能科学学院，06-系统工程学院，07-空天科学学院，08-国际\\关系学院，09-信息通信学院，10-电子对抗学院，11-气象海洋学院，12-军政基础\\教育学院，00-其他单位；
 
     \circled{3}：审批流水号代码。 
   %   \item 开题报告表中学员填写的内容包括学位论文选题的立论依据、文献综述、研究内容、研究条件、学位论文工作计划、主要参考文献等，指导教师认可学员开题报告内容后，对学员学位论文选题价值、对国内/外研究现状的了解情况、研究内容、研究方案等方面予以评价。

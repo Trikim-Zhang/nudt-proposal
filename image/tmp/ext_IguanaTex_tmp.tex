@@ -1,0 +1,31 @@
+\documentclass{article}
+\input{preamble}
+\begin{document}
+
+\begin{equation}\label{eq:stop}
+ \mathrm{Stop}(\cdot) = 
+ \left\{
+  \begin{array}{ll}
+   1, &
+   \left\{
+    \begin{array}{l}
+     \max \hat{\beta}_{i \sim j} > \Delta \\
+     n_{im} < n_{\max} \\
+     |i\sim j| > 1\ \mathrm{for\ any}\ i\sim j \\
+    \end{array}
+   \right.\\
+   0, & \mathrm{otherwise}
+  \end{array}
+ \right.
+\end{equation}
+
+\begin{equation}\label{eq:s}
+ \left\{
+  \begin{array}{l}
+   m = j-i+1\\
+   s =  \lceil i - 1 + 2^{ \lceil m-1 \rceil  } \rceil 
+  \end{array}
+ \right.
+\end{equation}
+
+\end{document}

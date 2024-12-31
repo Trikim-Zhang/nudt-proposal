@@ -9,3 +9,28 @@
 \subsection{预期创新点}
 
 很多内容……
+
+\begin{algorithm}[H]
+    \caption{Gauss列主元消元法}
+    \label{alg:GaussElim}
+    \Input{$[\boldsymbol{A}\,| \boldsymbol{b}]$}
+    \Output{$\boldsymbol{x}$}
+    $\boldsymbol{Z} = [\boldsymbol{A}\,| \boldsymbol{b}]$\\
+    \For{$k = 1\to n-1$}{
+        \tcp*[l]{\colorbox{cyan!50}{A}}
+        \For{$i = k+1\to n$}{
+            \tcp*[l]{\colorbox{cyan!50}{B}}
+            $\boldsymbol{Z}[i,:]\gets \boldsymbol{Z}[i,:]-\dfrac{a_{ik}^{(k)}}{a_{kk}^{(k)}}\boldsymbol{Z}[k,:]$
+        }
+        \tcp*[l]{\colorbox{cyan!50}{C}}
+    }
+    $\boldsymbol{A} = \boldsymbol{Z}[:,1:n]$\\
+    $\boldsymbol{b} = \boldsymbol{Z}[:,n+1]$\\
+    \For{$i = n\to 1$}{
+        \tcp*[l]{\colorbox{cyan!50}{D}}
+        $\boldsymbol{x}[{i}] = \boldsymbol{b}[i]$\\
+        $\boldsymbol{x}[{i}] = \boldsymbol{x}[{i}]-\boldsymbol{A}[i,i+1:]\boldsymbol{x}[i+1:]$\\
+        $\boldsymbol{x}[i] = \boldsymbol{x}[i]/\boldsymbol{A}[i,i]$
+    }
+    \Return {$\boldsymbol{x}$}
+\end{algorithm}

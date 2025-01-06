@@ -4,9 +4,7 @@
 
 ## 1. Introduction
 
-Use `nudtproposal.cls` directly and modify **your** `main.tex`. The contents in `makepdf.bat` may help you with the compiling procedure. Any third party packages or macros can be added in `ref/bibtabular.tex`.
-
-**About Fonts:** FZ fonts are best for printing (your final version).
+Use `nudtproposal.cls` directly and modify **your** `main.tex`. The contents in `makepdf.bat` may help you with the compiling procedure. Any third party packages or macros can be added in `data/preamble.tex`.
 
 ## 2. Contribute to NUDTpaper
 
